@@ -1,3 +1,5 @@
+# Python2Shell v0.1 (LiquidSky)
+
 import socket
 
 # Custom Base64 encoding function (same as before)
