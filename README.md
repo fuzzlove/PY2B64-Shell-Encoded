@@ -11,9 +11,10 @@ Use a portable python interpreter like https://github.com/EdwardLab/binpython/re
 
 Run on the target host:
 
+```
 Uage: pyton3 server.py
 Uage: python3 client.py
-
+```
 The HOST and PORT are hardcoded and need to be changed.
 
 Hardcoded variables to change:
