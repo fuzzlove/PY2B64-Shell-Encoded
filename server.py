@@ -1,3 +1,4 @@
+# Python2Shell v0.1 (LiquidSky)
 import os
 import socket
 import subprocess
@@ -32,10 +33,18 @@ PORT = 446              # The same port as listener.
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((HOST, PORT))
 s.listen(1)
-
-print("[*] Waiting for connection...")
+s
+print('''
+█▄─▄▄─█▄─█─▄█─▄─▄─█─█─█─▄▄─█▄─▀█▄─▄█▀▄▄▀█─▄▄▄▄█─█─█▄─▄▄─█▄─▄███▄─▄███
+██─▄▄▄██▄─▄████─███─▄─█─██─██─█▄▀─███▀▄██▄▄▄▄─█─▄─██─▄█▀██─██▀██─██▀█
+▀▄▄▄▀▀▀▀▄▄▄▀▀▀▄▄▄▀▀▄▀▄▀▄▄▄▄▀▄▄▄▀▀▄▄▀▄▄▄▄▀▄▄▄▄▄▀▄▀▄▀▄▄▄▄▄▀▄▄▄▄▄▀▄▄▄▄▄▀ v.01''')
+print("[*] Waiting for connection...\n")
 client_socket, client_address = s.accept()
+
+
 print(f"[*] Connection from {client_address}")
+
+
 
 while True:
     try:
