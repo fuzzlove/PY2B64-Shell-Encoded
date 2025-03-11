@@ -7,7 +7,7 @@
 
 PowerShell 2 B64 (Custom) - Reverse Shell PoC
 
-an interpreter needa both the server.py, and client.py to be able to permit a more reaslistec attack. 
+an interpreter needs both the server.py, and client.py to be able to permit a more reaslistec attack. 
 
 Use a portable python interpreter like https://github.com/EdwardLab/binpython/releases/tag/0.46 to get the best results.
 
