@@ -11,6 +11,7 @@ Use a portable python interpreter like https://github.com/EdwardLab/binpython/re
 
 Run on the target host:
 
+Note: The hardcoded IPs are in client.py
 ```
 Uage: pyton3 server.py
 Uage: python3 client.py
@@ -26,3 +27,5 @@ PORT = 446              # The same port as listener.
 Features: Custom encode commands before they are sent to the server.
 
 3/10/25 - By LiquidSky (c) 2025
+
+[ Shout out to #S3 ]
