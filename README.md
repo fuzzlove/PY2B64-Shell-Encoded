@@ -32,3 +32,5 @@ Features: Custom encode commands before they are sent to the server.
 3/10/25 - By LiquidSky (c) 2025
 
 [ Shout out to #S3 ]
+
+Latyly but not leat theis information is not to be played with and for testing.
