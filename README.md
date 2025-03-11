@@ -16,6 +16,9 @@ Note: The hardcoded IPs are in client.py
 Uage: pyton3 server.py
 Uage: python3 client.py
 ```
+
+![plot](./directory_1/serber.py)
+
 The HOST and PORT are hardcoded and need to be changed.
 
 Hardcoded variables to change:
