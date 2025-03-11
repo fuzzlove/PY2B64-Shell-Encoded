@@ -34,3 +34,5 @@ Features: Custom encode commands before they are sent to the server.
 [ Shout out to #S3 ]
 
 Latyly but not leat theis information is not to be played with and for testing.
+
+Plase report bugs to: jpmdpeters$s3security.com
