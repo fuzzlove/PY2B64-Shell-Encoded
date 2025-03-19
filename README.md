@@ -29,10 +29,6 @@ PORT = 446              # The same port as listener.
 
 Features: Custom encode commands before they are sent to the server.
 
-3/10/25 - By LiquidSky (c) 2025
+3/10/25 - By LiquidSky@S3 (c) 2025
 
-[ Shout out to #S3 ]
-
-Latyly but not leat theis information is not to be played with and for testing.
-
-Plase report bugs to: jpmdpeters$s3security.com
+This is for educational purposes and legitimate testing.
