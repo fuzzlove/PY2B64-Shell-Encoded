@@ -5,7 +5,7 @@
 █▀▀▀ ▄▄▄█ █▄▄ ▀▀▀░ ▀▄▄▀ ░░░█░ 　 ▒█▄▄▄█ ▒█░▒█ ▒█▄▄▄ ▒█▄▄█ ▒█▄▄█    v.0.2
 ```
 
-Python Shell w/ B64 Encoding (Custom) - Reverse Shell PoC
+Python Shell w/ B64 Encoding (Custom) - Bind Shell PoC
 
 An interpreter needs both the 1. server.py, and 2. client.py to be able to permit a more realistic test. 
 
