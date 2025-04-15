@@ -29,6 +29,15 @@ HOST = '192.168.1.67'  # The IP of the listener.
 PORT = 446              # The same port as listener.
 ```
 
+---
+
+Updates (4/15/25)
+The client has been updated to change the IP and PORT. Also a compiled exe version has been included.
+
+The server source hasnt been changed but an exe version that listens on port 446 has been added.
+
+---
+
 Features: Custom encode commands before they are sent to the server.
 
 3/19/25 - By LiquidSky@S3 (c) 2025
