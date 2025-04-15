@@ -11,6 +11,8 @@ An interpreter needs both the 1. server.py, and 2. client.py to be able to permi
 
 Use a portable python interpreter like https://github.com/EdwardLab/binpython/releases/tag/0.46 to get the best results.
 
+Alternatively if you do not want to use scripts executable.
+
 Run on the target host:
 
 Note: The hardcoded IPs are in client.py
