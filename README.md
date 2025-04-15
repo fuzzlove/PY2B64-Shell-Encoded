@@ -18,7 +18,7 @@ Run on the target host:
 Note: The hardcoded IPs are in client.py
 
 ```
-Uage: pyton3 server.py
+Uage: python3 server.py
 Uage: python3 client.py
 ```
 
