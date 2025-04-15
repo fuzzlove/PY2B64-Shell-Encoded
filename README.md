@@ -40,6 +40,6 @@ The server source hasnt been changed but an exe version that listens on port 446
 
 Features: Custom encode commands before they are sent to the server.
 
-3/19/25 - By LiquidSky@S3 (c) 2025
+By LiquidSky @ S3 (c) 2025
 
 This is for educational purposes and legitimate testing.
